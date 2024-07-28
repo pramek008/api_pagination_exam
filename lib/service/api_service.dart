@@ -36,6 +36,7 @@ class ApiService {
   }
 
   Future<List<ProductResponseModel>> fetchPaginationProducts({
+    // Skip data to fetch the next set of products
     required int skipData,
   }) async {
     final response = await Dio(
@@ -43,7 +44,9 @@ class ApiService {
         baseUrl: 'https://dummyjson.com',
         method: 'GET',
         queryParameters: {
+          // Limit the number of products to fetch in a single request
           'limit': 10,
+          // Skip the number of products to fetch the next set of products
           'skip': skipData,
           'select': productProperties.join(','),
         },
